@@ -4,6 +4,9 @@ import Overview from "./pages/Overview"
 import Matches from "./pages/Matches"
 import Heatmaps from "./pages/Heatmaps"
 import Report from "./pages/Report"
+import Coach from "./pages/Coach"
+import MatchAnalysis from "./pages/MatchAnalysis"
+import VideoCoach from "./pages/VideoCoach"
 
 const PLAYER = { name: "TuOrdinateur", tag: "6969" }
 const API = "http://localhost:8000"
@@ -13,6 +16,9 @@ const NAV = [
   { id: "matches",   icon: "🎮", label: "Matches"   },
   { id: "heatmaps",  icon: "🗺️", label: "Heatmaps"  },
   { id: "report",    icon: "📝", label: "Rapport"   },
+  { id: "coach", icon: "🤖", label: "Coach IA" },
+  { id: "analysis", icon: "🔬", label: "Analyse Match" },
+  { id: "video", icon: "🎬", label: "Coach Vidéo" },
 ]
 
 export default function App() {
@@ -84,6 +90,9 @@ export default function App() {
             {page === "matches"   && <Matches   {...stats} />}
             {page === "heatmaps"  && <Heatmaps  {...stats} />}
             {page === "report"    && <Report    {...stats} />}
+            {page === "coach" && <Coach {...stats} />}
+            {page === "analysis" && <MatchAnalysis {...stats} />}
+            {page === "video" && <VideoCoach />}
           </>
         )}
       </main>
