@@ -7,7 +7,7 @@ from collections import defaultdict
 
 def get_henrik_headers():
     key = os.getenv("HENRIK_API_KEY", "")
-    return {"Authorization": key, "User-Agent": "RiftIQ-EIP/1.0"}
+    return {"Authorization": key, "User-Agent": "RiftIQ/1.0"}
 
 OLLAMA_URL   = "http://localhost:11434/api/generate"
 OLLAMA_MODEL = "mistral"

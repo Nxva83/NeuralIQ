@@ -29,7 +29,7 @@ REGIONS = {
 }
 
 RIOT_HEADERS   = {"X-Riot-Token": API_KEY}
-HENRIK_HEADERS = {"User-Agent": "RiftIQ-EIP/1.0", "Authorization": HENRIK_API_KEY}
+HENRIK_HEADERS = {"User-Agent": "RiftIQ/1.0", "Authorization": HENRIK_API_KEY}
 RATE_LIMIT_PAUSE = 1.2
 
 # ─── Dataclasses ───────────────────────────────────────────────────────────────

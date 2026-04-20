@@ -91,7 +91,7 @@ export default function App() {
           {refreshing ? "⏳" : "↺"} REFRESH
         </button>
 
-        <div className="header-badge">EIP EPITECH · 2025</div>
+        <div className="header-badge">RIFTIQ PRO · 2026</div>
       </header>
 
       {/* Sidebar */}

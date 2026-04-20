@@ -95,7 +95,7 @@ export RIOT_API_KEY="RGAPI-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
 1. Va sur [developer.riotgames.com](https://developer.riotgames.com) → **Submit a Product**
 2. Remplis le formulaire :
    - **App Name** : RiftIQ
-   - **Description** : Plateforme de coaching IA pour joueurs Valorant — projet étudiant Epitech EIP
+   - **Description** : Plateforme de coaching IA pour joueurs Valorant
    - **Scopes** : `openid`, `cpid`
    - **Redirect URI** : `http://localhost:8000/auth/callback`
 3. Riot te donne un `client_id` et `client_secret` (délai 1-2 semaines)
@@ -349,7 +349,7 @@ Réduis le nombre de frames : `--frames 4`
 
 ---
 
-## 📊 Roadmap EIP
+## 📊 Roadmap produit
 
 - [x] Pipeline données Riot + Henrik
 - [x] Module K-Means heatmap (12 maps)
@@ -374,8 +374,10 @@ Riot Games, VALORANT et tous les éléments associés sont des marques déposée
 
 ---
 
-## 👥 Équipe EIP Epitech 2025
+## 👥 Équipe projet
 
 **RiftIQ** — Coaching IA pour joueurs compétitifs Valorant
+
+Projet professionnel orienté produit, centré sur l'analyse de performance et l'aide à la progression.
 
 ---
