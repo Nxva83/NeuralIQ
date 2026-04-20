@@ -128,19 +128,68 @@ class RiotClient:
 
     def get_match_ids(self, count: int = 20, queue: str = "competitive") -> list[str]:
         """
-        Henrik v3 — /valorant/v3/matches/{region}/{name}/{tag}
-        Note : Henrik utilise son propre PUUID (différent du PUUID Riot),
-        on passe donc par name/tag pour récupérer les matchs.
+        Récupère les match IDs via deux endpoints Henrik :
+        1. stored-matches — historique complet stocké par Henrik
+        2. v3/matches — fallback sur les matchs récents si stored vide
         """
-        url = (
-            f"https://api.henrikdev.xyz/valorant/v3/matches"
-            f"/{self.henrik_region}/{self.game_name}/{self.tag_line}"
-            f"?mode={queue}&size={min(count, 20)}"
-        )
-        data    = self._henrik_get(url)
-        matches = data.get("data", [])
-        ids     = [m["metadata"]["matchid"] for m in matches]
-        print(f"  📋 {len(ids)} matchs récupérés")
+        ids  = []
+        page = 0
+
+        # ── Tentative 1 : stored-matches (historique complet) ──
+        print("  🔍 Récupération via stored-matches...")
+        while len(ids) < count:
+            batch = min(20, count - len(ids))
+            url   = (
+                f"https://api.henrikdev.xyz/valorant/v1/stored-matches"
+                f"/{self.henrik_region}/{self.game_name}/{self.tag_line}"
+                f"?mode={queue}&size={batch}&page={page}"
+            )
+            try:
+                data    = self._henrik_get(url)
+                matches = data.get("data", [])
+                if not matches:
+                    break
+                # stored-matches utilise meta.id au lieu de metadata.matchid
+                new_ids = []
+                for m in matches:
+                    mid = (m.get("meta") or {}).get("id") or                           (m.get("metadata") or {}).get("matchid") or                           m.get("matchId") or m.get("match_id")
+                    if mid:
+                        new_ids.append(mid)
+                if not new_ids:
+                    break
+                ids += new_ids
+                print(f"  📋 stored page {page+1} : {len(new_ids)} matchs (total : {len(ids)})")
+                page += 1
+                if len(matches) < batch:
+                    break
+                time.sleep(1.5)
+            except Exception as e:
+                print(f"  ⚠️  stored-matches erreur : {e}")
+                break
+
+        # ── Tentative 2 : v3/matches (fallback si stored vide) ──
+        if not ids:
+            print("  🔍 Fallback sur v3/matches...")
+            page = 0
+            while len(ids) < count:
+                batch = min(20, count - len(ids))
+                url   = (
+                    f"https://api.henrikdev.xyz/valorant/v3/matches"
+                    f"/{self.henrik_region}/{self.game_name}/{self.tag_line}"
+                    f"?mode={queue}&size={batch}&page={page}"
+                )
+                data    = self._henrik_get(url)
+                matches = data.get("data", [])
+                if not matches:
+                    break
+                ids += [m["metadata"]["matchid"] for m in matches]
+                print(f"  📋 v3 page {page+1} : {len(matches)} matchs (total : {len(ids)})")
+                page += 1
+                if len(matches) < batch:
+                    break
+                time.sleep(1.5)
+
+        print(f"  ✅ {len(ids)} matchs récupérés au total")
         return ids
 
     def get_match_detail(self, match_id: str) -> dict:
