@@ -30,7 +30,7 @@ from PIL import Image, ImageEnhance, ImageFilter
 # ─── Config ────────────────────────────────────────────────────────────────────
 
 HENRIK_API_KEY = os.getenv("HENRIK_API_KEY", "")
-HENRIK_HEADERS = {"Authorization": HENRIK_API_KEY, "User-Agent": "RiftIQ-EIP/1.0"}
+HENRIK_HEADERS = {"Authorization": HENRIK_API_KEY, "User-Agent": "RiftIQ/1.0"}
 OUTPUT_DIR     = "output"
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 IMG_SIZE = 1024
@@ -345,7 +345,7 @@ def generate_heatmap(events, map_name, event_type, player, out_path):
         sp.set_edgecolor(accent)
         sp.set_linewidth(1)
 
-    ax.text(0.995, 0.005, "RiftIQ — EIP Epitech",
+    ax.text(0.995, 0.005, "RiftIQ — Pro Edition",
             transform=ax.transAxes, color="#445566",
             fontsize=8, ha="right", va="bottom")
 
